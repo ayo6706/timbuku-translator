@@ -2,14 +2,15 @@ import nextConnect from 'next-connect';
 import multer from 'multer';
 import { processImage, generateText } from '../../lib/gcp'; 
 
-const upload = multer({ dest: 'uploads/' });
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage });
 
 const handler = nextConnect();
 
 handler.use(upload.single('image'));
 
 handler.post(async (req, res) => {
-    const imageFile = req.file.path;
+    const imageFile = req.file.buffer;
     try {
         const imageText = await processImage(imageFile);
         const response = await generateText(imageText);
@@ -19,6 +20,7 @@ handler.post(async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 export const config = {
     api: {
         bodyParser: false,
