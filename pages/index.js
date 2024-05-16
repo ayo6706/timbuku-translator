@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Timbuktu Manuscript Summarizer</h1>
+      <h1 className={styles.title}>Timbuktu Manuscript Classification</h1>
       <form onSubmit={onSubmit} className={styles.form}>
         <input type="file" onChange={onFileChange} className={styles.input} />
         <button type="submit" className={styles.button}>
