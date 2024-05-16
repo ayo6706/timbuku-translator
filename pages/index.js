@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import DOMPurify from 'dompurify';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
@@ -42,7 +43,7 @@ export default function Home() {
           {isLoading ? 'Analyzing...' : 'Upload Image'}
         </button>
       </form>
-      {responseText && <div className={styles.responseText}>{responseText}</div>}
+      {responseText && <div className={styles.responseText} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(responseText) }}></div>}
       {isLoading && <div className={styles.loadingText}>Analyzing Image...</div>}
     </div>
   );
